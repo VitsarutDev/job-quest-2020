@@ -1,0 +1,48 @@
+1.Explain First-party cookie & Third-party cookie
+===>
+-First-party cookie คือ ไฟล์คุกกี้ถูกสร้างและบันทึกข้อมูลไว้ที่เว็บไซต์ที่กำลังเข้า จะสามารถถูกอ่านได้โดยเว็บไซต์ที่เป็นผู้สร้างและทำการบันทึกข้อมูลเท่านั้น
+-Third-party cookie คือ ไฟล์คุกกี้ถูกสร้างและบันทึกข้อมูลโดยเว็บไซต์ใดๆ หรือ แบรนด์ใดๆ ก็ได้ และสามารถแบ่งปันข้อมูลไปใช้ได้อย่างอิสระ
+
+2.Explain CAP Theorem.
+===>ทฤษฏีหรือแนวคิด หลักการเลือก Database ให้เหมาะสมกับงานที่จะทำ โดยมีสามข้อหลัก
+    -C คือ Consistency ข้อมูลจะต้องอัพเดต
+    -A คือ Availability ข้อมูลจะต้องพร้อมใช้งาน
+    -P คือ Partition Tolerance ทำงานต่อได้ แม้จะมีโหนดใดโหนดนึงเสียไป
+
+3.Considering two queries
+
+const searchIds = ['1', '2', '3', ...];
+const query1 = await Product.find({ id: { $in: searchIds } });
+const query2 = await Promise.all(searchIds.map(searchId => Product.find({ id: searchId })));
+
+Which one is faster.
+===>query2 เพราะ Promise.all ทำงานแบบ parallel
+
+4.Explain XSS / SQL Injection / Man in the Middle Attack, and how to prevent each attack type.
+===>
+-XSS คือ เทคนิคการฝังโค้ดเข้าไปกับหน้าเว็บเพจ เมื่อมีการโหลดเว็บเพจ ค่าที่สำคัญบางอย่าง เช่น cookie, username จะถูกขโมยไป
+วิธีป้องกัน หลีกเลี่ยง Request Data ต่างๆที่จะออกไปแสดงผล ในรูปแบบ HTML, ใช้การ encoding, ใช้ framework ที่มีการหลีกเลี่ยง XSS โดยอัตโนมัติ (React)
+-SQL Injection คือ เทคนิคที่ใช้ประโยชน์จากส่งคำสั่ง SQL ผ่านทางเว็บแอพพลิเคชันเพื่อไปโจมตีระบบฐานข้อมูลหลังบ้าน
+วิธีป้องกัน กรองทุก user input ก่อนที่จะนำไปใช้ใน query
+-Man in the Middle Attack คือ เทคนิคการโจมตีของแฮคเกอร์ที่จะปลอมเป็นคนกลางเข้ามาแทรกสัญญาณการรับส่งข้อมูลระหว่างผู้ใช้ (เบราว์เซอร์) และเซิร์ฟเวอร์ โดยใช้โปรแกรมดักฟังข้อมูลของเหยื่อ
+วิธีป้องกัน ในทุกครั้งที่เปิดเครื่องและก่อนใช้งานใดๆ ให้ใช้คำสั่ง arp -s เพื่อทำ static ค่า IP กับ MAC ของ Gateway
+
+
+5.Explain the different between using callback / Promise / async await. When to use and when not to.
+===>
+-callback คือ ฟังก์ชันที่ถูกเรียกหลังจากฟังก์ชั่นอื่นทำงานเสร็จ และการทำงานเป็นแบบ synchronous
+    ควรใช้: กรณีที่ฟังก์ชันไม่มีความซับซ้อน
+    ไม่ควรใช้: กรณีที่ฟังก์ชันมีความซับซ้อนมากขึ้น เนื่องจากดักจับ error ได้ยาก
+-Promise คือ object พิเศษที่เก็บ asynchronous operation
+    ควรใช้: กรณีที่ฟังก์ชันมีความซับซ้อน
+    ไม่ควรใช้: กรณีที่ฟังก์ชันมีความซับซ้อนและต้องการ handle error หลายๆตัว
+-async await คือ ฟีเจอร์ใหม่ใน ES2017
+    ควรใช้: กรณีที่ฟังก์ชันมีความซับซ้อนและต้องการความ clean ของโค้ด และการ handle error ที่ง่ายขึ้น
+    ไม่ควรใช้: กรณีที่ต้องการ Handling Error ทีละจุด
+
+6.Explain how HTTP protocol works.
+===>protocol สื่อสารผ่าน internet ใช้ในการรับและส่งข้อมูลในการแลกเปลี่ยนข้อมูลระหว่าง Client และ Server โดยการส่งจาก Client ไป Server จะเรียกว่า http request ส่วนข้อมูลที่ Server ตอบกลับมาที่ Client จะเรียกว่า http response
+
+
+
+

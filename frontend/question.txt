@@ -1,0 +1,43 @@
+1.Explain the what's similar & difference between cookie / localStorage / sessionStorage
+====> 
+สิ่งที่เหมือนกัน
+-เป็นตัวเก็บข้อมูลไว้ทางฝั่ง client side บนเว็บบราวเซอร์
+
+สิ่งที่ต่างกัน
+-localStorage และ sessionStorage เป็นประเภทของ Web Storage ซึ่งทำงานได้ไวกว่า cookie เนื่องจากจะไม่มีการส่ง HTTP header เหมือน cookie และ Web Storage มีความจุในการเก็บข้อมูลมากกว่า
+และ localStorage มีความต่างจาก sessionStorage คือ localStorage จะมีการเก็บข้อมูลไว้ตลอด จนกว่าจะมีการเคลียร์ค่าหรือหมดอายุ ส่วน sessionStorage ข้อมูลจะหายทันทีที่ปิดบราวเซอร์
+
+2.Today React have hooks. Do we still need a class component? If your answer is yes then which case that we still need to use class component.
+====>hooks นั้นรองรับ react version 16.8 ขึ้นไป ถ้าต่ำกว่านั้นจำเป็นต้องใช้ class component และ class component ไม่ support hooks
+
+3.Breifly describe how Virtual DOM works.
+====>มีการเก็บข้อมูล in-memory cache (หน่วยความจำชั่วคราว) เมื่อมี action หรือ event ต่างๆที่เกิดจาก user จะมีการนำข้อมูลที่ได้กับข้อมูลใน in-memory cache มาเทียบ และจะวาดเพิ่มแค่จุดที่เพิ่มขึ้นเท่านั้น ทำให้ใช้เวลาในการ render น้อยลง
+
+4.Consider this React's components tree
+Apps > ComponentA > ComponentB > ComponentC > ComponentD > ComponentE
+If we have a state at Apps component, and ComponentE component want to access that state value. How do you implements this?
+====>จากลำดับ Apps คือ Parent และสมมุติกำหนด state.name ขึ้นมาตัวนึง ส่วนอื่นๆ คือ Child ถ้าใน ComponentE ต้องการเรียกใช้ค่าใน state.name ของ Apps จะต้องเรียกผ่าน Props ซึ่งก็คือ props.state.name แทน
+
+5.What different between using relative / absolute / fixed to position the element.
+====>
+-relative จะแสดงผลต่อจาก ณ จุดที่มันอยู่ตรงนั้น “แบบตรงไปตรงมา”
+-absolute จะแสดงผลแบบอิสระภายใต้ element ที่ครอบอยู่อีกที
+-fixed ใช้กำหนดตำแหน่งของ element โดยยึดกับ Window browser และจะไม่เคลื่อนเมื่อมีการเลื่อน scrollbar
+
+6.Explain the different between using callback / Promise / async await. When to use and when not to.
+====>
+-callback คือ ฟังก์ชันที่ถูกเรียกหลังจากฟังก์ชั่นอื่นทำงานเสร็จ และการทำงานเป็นแบบ synchronous
+    ควรใช้: กรณีที่ฟังก์ชันไม่มีความซับซ้อน
+    ไม่ควรใช้: กรณีที่ฟังก์ชันมีความซับซ้อนมากขึ้น เนื่องจากดักจับ error ได้ยาก
+-Promise คือ object พิเศษที่เก็บ asynchronous operation
+    ควรใช้: กรณีที่ฟังก์ชันมีความซับซ้อน
+    ไม่ควรใช้: กรณีที่ฟังก์ชันมีความซับซ้อนและต้องการ handle error หลายๆตัว
+-async await คือ ฟีเจอร์ใหม่ใน ES2017
+    ควรใช้: กรณีที่ฟังก์ชันมีความซับซ้อนและต้องการความ clean ของโค้ด และการ handle error ที่ง่ายขึ้น
+    ไม่ควรใช้: กรณีที่ต้องการ Handling Error ทีละจุด
+
+
+
+
+
+
